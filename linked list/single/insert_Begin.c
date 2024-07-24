@@ -10,7 +10,7 @@ void printList(struct Node*head){
     while(current!=NULL){
         printf("%d ",current->data);
         current=current->next;
-    }
+    }   
     printf("\n");
 }
 void insertAtTheBeginning(struct Node**head_ref, int data){

@@ -9,29 +9,26 @@ struct Node {
     struct Node* next;
 };
 
-struct Node* head = NULL;
 
-void insert_sorted(int value) {
+void insert_sorted(struct Node** head_ref, int data) {
     struct Node* new_node = (struct Node*)malloc(sizeof(struct Node));
-    new_node->data = value;
+    new_node->data = data;
     new_node->next = NULL;
-
-    if (head == NULL || value < head->data) {
-        new_node->next = head;
-        head = new_node;
+    if (*head_ref == NULL || (*head_ref)->data >= new_node->data) {
+        new_node->next = *head_ref;
+        *head_ref = new_node;
         return;
     }
-
-    struct Node* current = head;
-    while (current->next != NULL && current->next->data < value) {
+    struct Node* current = *head_ref;
+    while (current->next != NULL && current->next->data < new_node->data) {
         current = current->next;
     }
-
+    
     new_node->next = current->next;
     current->next = new_node;
 }
 
-void display() {
+void display(struct Node*head) {
     struct Node* current = head;
     printf("List: ");
     while (current != NULL) {
@@ -42,17 +39,17 @@ void display() {
 }
 
 int main() {
-    int value;
-    char choice;
+    struct Node* head = NULL;
+    int num, data;
+    
+    printf("Enter number of elements to insert: ");
+    scanf("%d", &num);
+    
+    for (int i = 0; i < num; i++) {
+        printf("Enter value: ");
+        scanf("%d", &data);
+        insert_sorted(&head, data);
+        display(head);
+    }
 
-    do {
-        printf("Enter a number: ");
-        scanf("%d", &value);
-        insert_sorted(value);
-        display();
-        printf("Do you want to continue? (y/n): ");
-        scanf(" %c", &choice);
-    } while (choice == 'y' || choice == 'Y');
-
-    return 0;
 }

@@ -1,13 +1,10 @@
 #include <stdio.h>
 #include <stdlib.h>
-
-// Define the structure for a node in the linked list
 struct Node {
     int data;
     struct Node* next;
 };
 
-// Function to insert a new node at the end of the linked list
 void append(struct Node** head_ref, int new_data) {
     struct Node* new_node = (struct Node*)malloc(sizeof(struct Node));
     struct Node* last = *head_ref;
@@ -26,7 +23,6 @@ void append(struct Node** head_ref, int new_data) {
     last->next = new_node;
 }
 
-// Function to print the linked list
 void printList(struct Node* node) {
     while (node != NULL) {
         printf("%d ", node->data);
